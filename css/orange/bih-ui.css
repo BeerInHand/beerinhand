@@ -1,0 +1,39 @@
+@import url(jquery-ui-1.8.16.custom.css);
+
+.statusWindow { background: url("images/ui-bg_th_db7301_21x21.png") repeat scroll 50% 50% #DB7301; border: #DB7301 ridge 4px; display: none; font-weight: bold; padding: 12px; position: fixed; right: 10px; top: 10px; z-index: 1008; }
+
+button.ui-button-icon-only { height: 24px; margin: 0; padding: 0; width: 24px; }
+button.ui-button-icon-tiny { height: 18px; margin: 0; padding: 0; width: 18px; }
+div.bubbleHead { background: #DB7301 url("images/ui-bg_th_db7301_21x21.png") 50% 50% repeat; }
+table.datagrid tfoot th.buttons { background: url("images/ui-bg_inset-soft_50_db7301_1x100.png") repeat-x scroll 50% 50% #DB7301; }
+
+.bih-form-dialog { margin-right: 10px; position: static; width: auto; }
+.bih-icon { background-image: url(../images/bih-icons.png); background-repeat: no-repeat; height: 16px; vertical-align: middle; width: 16px; }
+.bih-progressbar-bar { background-color: #D7DFD7; background-image: url(\"images/ui-bg_glow-ball_100_db7301_600x600.png\"); }
+.bih-progressbar-ratio { color: #432300; }
+.bih-tr-icon { background-image: url("images/bih-tr-icons.png"); }
+.bubbleHead tr th { background: #DB7301 url("images/ui-bg_th_db7301_21x21.png") 50% 50% repeat; }
+.divScrollHead, .divScrollBody, .divScrollFoot, .divScrollWrap { background: #DB7301 url("images/ui-bg_th_db7301_21x21.png") 50% 50% repeat; }
+.divWrapper { background-color: #DB7301; }
+
+.ui-widget-header { background: #db7301 url(images/ui-bg_th_db7301_21x21.png) 50% 50% repeat; }
+.ui-state-error { background: #db7301 url(images/ui-bg_th_db0000_21x21.png) 50% 50% repeat; }
+
+.ui-button .bih-icon { background-image: url("../images/bih-icons.png"); }
+.ui-button-text-icon-primary .ui-button-icon-primary, .ui-button-text-icons .ui-button-icon-primary, .ui-button-icons-only .ui-button-icon-primary { left: 3px; }
+.ui-button-text-icon-primary .ui-button-text, .ui-button-text-icons .ui-button-text { font-size: 15px; padding: 3px 6px 3px 24px; }
+.ui-button-text-only .ui-button-text { font-size: 15px; padding: 3px 6px; }
+
+.ui-button.ui-button-text-tiny span.ui-button-text { font-size: 8pt; line-height: 15px; }
+
+.ui-dialog { border: 4px solid #DB7301; }
+.ui-dialog .ui-dialog-buttonpane { background: url("images/ui-bg_highlight-soft_50_db7301_1x100.png") repeat-x scroll 50% 50% #DB7301; border: 1px solid #432300; color: #E7EDE7; padding: 0 .5em; }
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: none; }
+
+#divToolbarTabs { background: url("images/ui-bg_th_db7301_21x21.png") repeat scroll 50% 50% #DB7301; border: 5px solid #DB7301; max-width: 750px; padding: 0; }
+#ulToolbarTabs li.ui-state-active { background: url("images/ui-bg_th_db7301_21x21.png") repeat scroll 50% 50% #DB7301; }
+#divExpAcc div.ui-accordion-content { padding: 0;}
+#divExpAcc h4.ui-accordion-header { background: #DB7301 url("images/ui-bg_th_db7301_21x21.png") 50% 50% repeat; }
+#divExpAcc h4.ui-accordion-header.ui-state-active { background: #DB7301 url("../images/sortable.png");}
+#divExpAcc h4.ui-accordion-header.ui-state-default a { color: #432300;}
+#divExpAcc h4.ui-accordion-header.ui-state-hover a { color: #000000;}

@@ -1,0 +1,421 @@
+
+ConvertPressure = function(UnitsIn, PressureIn, UnitsOut) {
+   if (UnitsIn = UnitsOut) {
+      ConvertPressure = PressureIn
+      return ?
+   }
+   if (UnitsIn = "PSI") {
+      ConvertPressure = 6.89475729316836 * PressureIn
+   } else {
+      ConvertPressure = PressureIn / 6.89475729316836
+   }
+}
+
+ConvertVolume = function(UnitsIn, VolumeIn, UnitsOut) {
+   if (UnitsIn = UnitsOut) {
+      ConvertVolume = VolumeIn
+      return ?
+   }
+   ToLiters = parseFloat(LitersConvert(UnitsIn))
+   ToLiters = IIf(ToLiters = 0, 1, ToLiters)
+   FromLiters = parseFloat(LitersConvert(UnitsOut))
+   FromLiters = IIf(FromLiters = 0, 1, FromLiters)
+   ConvertVolume = VolumeIn * ToLiters / FromLiters
+}
+ConvertWeight = function(UnitsIn, WeightIn, UnitsOut) {
+   if (UnitsIn = UnitsOut) {
+      ConvertWeight = WeightIn
+      return ?
+   }
+   ToGrams = parseFloat(GramsConvert(UnitsIn))
+   ToGrams = IIf(ToGrams = 0, 1, ToGrams)
+   FromGrams = parseFloat(GramsConvert(UnitsOut))
+   FromGrams = IIf(FromGrams = 0, 1, FromGrams)
+   ConvertWeight = WeightIn * ToGrams / FromGrams
+}
+ConvertTemp = function(UnitsIn, TempIn, UnitsOut) {
+   UnitsIn = Left(UCase(UnitsIn), 1)
+   UnitsOut = Left(UCase(UnitsOut), 1)
+   if (Left(UnitsIn, 1) = Left(UnitsOut, 1)) {
+      ConvertTemp = TempIn
+      return ?
+   }
+   if (Left(UnitsIn, 1) = "F") {
+      ConvertTemp = (TempIn - 32) / 1.8
+   } else {if (Left(UnitsIn, 1) = "C") {
+      ConvertTemp = (TempIn * 1.8) + 32
+   } else {
+      MsgBox "Error - Unit Unknown: " & UnitsIn
+   }
+}
+ConvertGravity = function(UnitsIn, GravityIn, UnitsOut) {
+   if (UnitsIn = UnitsOut Or (InStr(UnitsIn, "P") > 0 And InStr(UnitsOut, "P") > 0) Or GravityIn = 0) {
+      ConvertGravity = GravityIn
+      return ?
+   }
+   Dim GravityOut As Single
+   GravityOut = 0
+   if (UnitsIn = "SG") {
+      ConvertGravity = 260 - 260 / GravityIn
+   } else {if (InStr(UnitsIn, "P")) {
+      ConvertGravity = 260 / (260 - GravityIn)
+   } else {
+      MsgBox "Error - Unit Unknown: " & UnitsIn
+   }
+}
+CorrectGravity = function(GravityUnits, GravityIn, TempUnitsIn, TempIn, CalibrationTempInF) As Single
+    Dim TempInF As Single
+    TempInF = ConvertTemp(TempUnitsIn, TempIn, "F")
+    Dim GravityInSG As Single
+    GravityInSG = ConvertGravity(GravityUnits, GravityIn, "SG")
+    Dim At59 As Single
+    At59 = (1.313454) + (-0.132674) * CalibrationTempInF + (0.002057793) * CalibrationTempInF * CalibrationTempInF + (-0.000002627634) * CalibrationTempInF * CalibrationTempInF * CalibrationTempInF
+    GravityInSG = GravityInSG + ((1.313454 - (0.132674 * TempInF) + 0.002067793 * TempInF * TempInF - 0.000002627634 * TempInF * TempInF * TempInF) - At59) / 1000
+    CorrectGravity = ConvertGravity("SG", GravityInSG, GravityUnits)
+}
+AdjustGravityForVolume = function(GravityUnits, GravityIn, VolumeStart, GravityAdded, VolumeEnd As Single) As Single
+    Dim GravityInSG As Single
+    Dim AddedInSG As Single
+    GravityInSG = ConvertGravity(GravityUnits, GravityIn, "SG")
+    AddedInSG = ConvertGravity(GravityUnits, GravityAdded, "SG")
+    GravityInSG = (GravityInSG - 1) * VolumeStart
+    AddedInSG = (AddedInSG - 1) * (VolumeEnd - VolumeStart)
+    GravityInSG = (GravityInSG + AddedInSG) / VolumeEnd + 1
+    AdjustGravityForVolume = ConvertGravity("SG", GravityInSG, GravityUnits)
+}
+AdjustVolumeForGravity = function(GravityUnits, GravityStart, GravityEnd, GravityAdd, VolumeIn As Single) As Single
+    Dim GravityStartInSG As Single
+    GravityStartInSG = ConvertGravity(GravityUnits, GravityStart, "SG")
+    Dim GravityEndInSG As Single
+    GravityEndInSG = ConvertGravity(GravityUnits, GravityEnd, "SG")
+    Dim GravityAddInSG As Single
+    GravityAddInSG = ConvertGravity(GravityUnits, GravityAdd, "SG")
+    AdjustVolumeForGravity = (((GravityStartInSG - 1) - (GravityEndInSG - 1)) * VolumeIn) / IIf(GravityEndInSG - GravityAddInSG = 0, 0.0001, ((GravityEndInSG - 1) - (GravityAddInSG - 1)))
+'    AdjustVolumeForGravity = ((GravityStartInSG - 1) / (GravityEndInSG - 1)) * VolumeIn
+}
+ForceCarbonation = function(TempUnits, TempIn, PressureUnits, DesiredCO2 As Single) As Single
+    Dim TempInF As Single
+    Dim PresInPSI As Single
+    TempInF = ConvertTemp(TempUnits, TempIn, "F")
+    PresInPSI = -16.6999 - 0.0101059 * TempInF + 0.00116512 * TempInF * TempInF + _
+      0.173354 * TempInF * DesiredCO2 + 4.24267 * DesiredCO2 - 0.0684226 * DesiredCO2 * DesiredCO2
+    ForceCarbonation = ConvertPressure("PSI", PresInPSI, PressureUnits)
+}
+CurrentCO2 = function(TempUnits, TempIn As Single) As Single
+   ' Returns the amount of co2 that is saturated in the beer based on temp
+   Dim TempInC As Single
+   TempInC = ConvertTemp(TempUnits, TempIn, "C")
+   if (TempInC < 2) {
+      CurrentCO2 = 1.7
+   } else {if (TempInC < 4) {
+      CurrentCO2 = 1.6
+   } else {if (TempInC < 6) {
+      CurrentCO2 = 1.5
+   } else {if (TempInC < 8) {
+      CurrentCO2 = 1.4
+   } else {if (TempInC < 10) {
+      CurrentCO2 = 1.3
+   } else {if (TempInC < 12) {
+      CurrentCO2 = 1.2
+   } else {if (TempInC < 14) {
+      CurrentCO2 = 1.12
+   } else {if (TempInC < 16) {
+      CurrentCO2 = 1.05
+   } else {if (TempInC < 18) {
+      CurrentCO2 = 0.99
+   } else {if (TempInC < 20) {
+      CurrentCO2 = 0.93
+   } else {if (TempInC < 22) {
+      CurrentCO2 = 0.88
+   } else {
+      CurrentCO2 = 0.83
+   }
+}
+PrimingAddedCo2 = function(WeightUnits, WeightIn As Single, _
+                                 ByVal VolumeUnits, VolumeIn As Single, _
+                                 ByVal PrimerType) {
+   ' Returns the increase in the co2 level of the brew by adding the amount of the
+   ' sugar type indicated.
+   Dim WeightInGrams As Single
+   Dim VolumeInLiters As Single
+   Dim PrimingFactor As Single
+   
+   WeightInGrams = ConvertWeight(WeightUnits, WeightIn, "Grams")
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   PrimingFactor = parseFloat(PrimingFactors(PrimerType))
+   PrimingAddedCo2 = WeightInGrams * PrimingFactor / VolumeInLiters
+}
+PrimingAmountNeeded = function(WeightUnits, CO2In As Single, _
+                                 ByVal VolumeUnits, VolumeIn As Single, _
+                                 ByVal PrimerType) {
+   ' Returns the Amount of the sugar type required to increase the co2 level by CO2In.
+   ' Does not take into account the current saturation co2 levels based on temp.
+   Dim VolumeInLiters As Single
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   Dim PrimingFactor As Single
+   PrimingFactor = parseFloat(PrimingFactors(PrimerType))
+   Dim WeightInGrams As Single
+   WeightInGrams = CO2In / PrimingFactor * VolumeInLiters
+   PrimingAmountNeeded = ConvertWeight("Grams", WeightInGrams, WeightUnits)
+}
+AmountFromIBUs = function(VolumeUnits, VolumeIn As Single, _
+                               ByVal GravityUnits, GravityIn As Single, _
+                               ByVal WeightUnits, IBUs As Single, _
+                               ByVal HopAAU, HopForm As String, _
+                               ByVal BoilLength As Single, _
+                               ByVal When, BoilVolumeIn As Single) As Single
+   Dim UtilPCT As Single
+   UtilPCT = GetHopUtil(HopForm, BoilLength, When)
+   if (VolumeIn = 0 Or IBUs = 0 Or HopAAU = 0 Or UtilPCT = 0) {
+      AmountFromIBUs = 0
+      return ?
+   }
+   Dim VolumeInLiters As Single
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   Dim GravityCorrection As Single
+   GravityCorrection = IBUCorrectionForGravity(GravityUnits, GravityIn, VolumeIn, BoilVolumeIn)
+   Dim WeightInGrams As Single
+   WeightInGrams = ((VolumeInLiters * GravityCorrection * IBUs) / (UtilPCT / 100 * HopAAU / 100 * 1000))
+   AmountFromIBUs = ConvertWeight("Grams", WeightInGrams, WeightUnits)
+}
+IBUsFromAmount = function(VolumeUnits, VolumeIn As Single, _
+                               ByVal GravityUnits, GravityIn As Single, _
+                               ByVal WeightUnits, HopWeight As Single, _
+                               ByVal HopAAU, HopForm As String, _
+                               ByVal BoilLength As Single, _
+                               ByVal When, BoilVolumeIn As Single) As Single
+   if (VolumeIn = 0 Or HopWeight = 0 Or HopAAU = 0) {
+      IBUsFromAmount = 0
+      return ?
+   }
+   Dim VolumeInLiters As Single
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   Dim GravityCorrection As Single
+   GravityCorrection = IBUCorrectionForGravity(GravityUnits, GravityIn, VolumeIn, BoilVolumeIn)
+   Dim WeightInGrams As Single
+   WeightInGrams = ConvertWeight(WeightUnits, HopWeight, "Grams")
+   Dim UtilPCT As Single
+   UtilPCT = GetHopUtil(HopForm, BoilLength, When)
+   IBUsFromAmount = (WeightInGrams * UtilPCT / 100 * HopAAU / 100 * 1000) / (VolumeInLiters * GravityCorrection)
+}
+GetHopUtil = function(HopForm, BoilLength, When) {
+   Dim rsGU As ADODB.Recordset
+   GetHopUtil = 0
+   if (BoilLength = 0 Or When = "Dry") {
+      return ?
+   }
+   if (When = "FWH" Or When = "Mash") {
+      Set rsGU = New Recordset
+      rsGU.Open "Select * from HopForm where ucase(hf_form)=" & InQuotes(Left(UCase(HopForm), 6)), cnWork, adOpenForwardOnly, adLockReadOnly
+      if (rsGU.RecordCount > 0) {
+         GetHopUtil = IIf(When = "FWH", rsGU!hf_fwh, rsGU!hf_mash)
+      }
+      rsGU.Close
+      Set rsGU = Nothing
+      return ?
+   }
+
+   if (Not cnWork Is Nothing) {
+      Dim prvT, prvU, delT As Double
+      prvT = 0
+      prvU = 0
+      Set rsGU = New Recordset
+'      rsWork.Open "Select bu_util from Utilization where bu_form=""" & HopForm & """ and bu_time=(select max(bu_time) from utilization where bu_form=""" & HopForm & """ and bu_time<=" & BoilLength & ")", cnWork, adOpenStatic, adLockReadOnly
+      rsGU.Open "Select bu_time,bu_util from utilization where ucase(bu_form)=" & InQuotes(Left(UCase(HopForm), 6)) & " order by bu_time", cnWork, adOpenForwardOnly, adLockReadOnly
+      if (rsGU.RecordCount > 0) {
+         Do While Not rsGU.EOF 'And Not (BoilLength <= rsGU!bu_time)
+            if (BoilLength = rsGU!bu_time) {
+               GetHopUtil = rsGU!bu_util
+               Exit Do
+            }
+            if (BoilLength < rsGU!bu_time) {
+               delT = rsGU!bu_time - prvT
+               if (delT > 0) { delT = (BoilLength - prvT) / delT
+               GetHopUtil = Round(delT * (rsGU!bu_util - prvU) + prvU, 0)
+               Exit Do
+            }
+            prvT = rsGU!bu_time
+            prvU = rsGU!bu_util
+            GetHopUtil = prvU
+'            GetHopUtil = BoilLength / rsGU!bu_time * rsGU!bu_util
+            rsGU.MoveNext
+         Loop
+         rsGU.Close
+         Set rsGU = Nothing
+         return ?
+      }
+   }
+   if (Left(UCase(HopForm), 3) = "FWH") {
+      GetHopUtil = 30 + IIf(Left(UCase(HopForm), 6) = "FWHPEL", 2, 0)
+   } else {if (BoilLength <= 15) {
+      GetHopUtil = BoilLength / 15 * (10 + IIf(UCase(HopForm) = "PELLET", 2, 0))
+   } else {if (BoilLength <= 30) {
+      GetHopUtil = BoilLength / 30 * (20 + IIf(UCase(HopForm) = "PELLET", 2, 0))
+   } else {if (BoilLength <= 45) {
+      GetHopUtil = BoilLength / 45 * (24 + IIf(UCase(HopForm) = "PELLET", 2, 0))
+   } else {if (BoilLength <= 60) {
+      GetHopUtil = BoilLength / 60 * (26 + IIf(UCase(HopForm) = "PELLET", 2, 0))
+   } else {if (BoilLength <= 90) {
+      GetHopUtil = BoilLength / 90 * (30 + IIf(UCase(HopForm) = "PELLET", 2, 0))
+   } else {
+      GetHopUtil = 30 + IIf(UCase(HopForm) = "PELLET", 2, 0)
+   }
+}
+IBUCorrectionForGravity = function(GravityUnits, GravityIn, VolumeIn, BoilVolumeIn As Single) As Single
+   Dim GravityInSG As Single
+   GravityInSG = ConvertGravity(GravityUnits, GravityIn, "SG")
+   
+   if (BoilVolumeIn > 0 And BoilVolumeIn <> VolumeIn) {
+      GravityInSG = 1 + (VolumeIn / BoilVolumeIn) * (GravityInSG - 1)
+   }
+   
+   if (GravityInSG > 1.05) {
+      IBUCorrectionForGravity = 1 + (GravityInSG - 1.05) / 0.2
+   } else {
+      IBUCorrectionForGravity = 1
+  }
+}
+InfusionVolume = function(VolumeUnits, VolumeIn As Single, _
+                               ByVal WeightUnits, MaltWeight As Single, _
+                               ByVal TempAdded, TempStart As Single, _
+                               ByVal TempFinal, MaltHeatCap As Single) As Single
+   if (TempStart = TempFinal Or VolumeIn + MaltWeight = 0) {
+      InfusionVolume = 0
+      return ?
+   }
+   Dim VolumeInLiters As Single
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   Dim WeightInKg As Single
+   WeightInKg = ConvertWeight(WeightUnits, MaltWeight, "Kg")
+   Dim InfusionInLiters As Single
+   Dim vm As Single
+   Dim mc As Single
+   vm = WeightInKg + VolumeInLiters
+   mc = (MaltHeatCap * WeightInKg + VolumeInLiters) / (WeightInKg + VolumeInLiters)
+   InfusionInLiters = mc * vm * (TempStart - TempFinal) / IIf((TempFinal - TempAdded) = 0, 0.001, (TempFinal - TempAdded))
+   InfusionVolume = ConvertVolume("Liters", InfusionInLiters, VolumeUnits)
+}
+InfusionTemp = function(VolumeUnits, VolumeIn, VolumeInfused As Single, _
+                             ByVal WeightUnits, MaltWeight As Single, _
+                             ByVal TempStart As Single, _
+                             ByVal TempFinal, MaltHeatCap As Single) As Single
+   if (VolumeInfused = 0) {
+      InfusionTemp = TempStart
+      return ?
+   }
+   Dim VolumeInLiters As Single
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   Dim InfusionInLiters As Single
+   InfusionInLiters = ConvertVolume(VolumeUnits, VolumeInfused, "Liters")
+   Dim WeightInKg As Single
+   WeightInKg = ConvertWeight(WeightUnits, MaltWeight, "Kg")
+   Dim vm As Single
+   Dim mc As Single
+   vm = WeightInKg + VolumeInLiters
+   mc = (MaltHeatCap * WeightInKg + VolumeInLiters) / (WeightInKg + VolumeInLiters)
+   
+   InfusionTemp = -(mc * vm * (TempStart - TempFinal) - InfusionInLiters * TempFinal) / InfusionInLiters
+}
+DecoctionWeight = function(VolumeUnits, VolumeIn As Single, _
+                               ByVal WeightUnits, MaltWeight As Single, _
+                               ByVal TempAdded, TempStart As Single, _
+                               ByVal TempFinal, MaltHeatCap As Single) As Single
+   if (TempStart = TempFinal Or VolumeIn + MaltWeight = 0) {
+      DecoctionWeight = 0
+      return ?
+   }
+   Dim VolumeInLiters As Single
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   Dim WeightInKg As Single
+   WeightInKg = ConvertWeight(WeightUnits, MaltWeight, "Kg")
+   Dim DecoctionInKg As Single
+   Dim bothalf As Double
+   bothalf = (1 + ((TempFinal - TempAdded) / (TempStart - TempFinal)))
+   bothalf = IIf(bothalf = 0, 0.001, bothalf)
+   DecoctionInKg = (MaltHeatCap * WeightInKg + VolumeInLiters) / bothalf
+'   Dim vm As Single
+'   Dim mc As Single
+'   vm = WeightInKg + VolumeInLiters
+'   mc = (MaltHeatCap * WeightInKg + VolumeInLiters) / (WeightInKg + VolumeInLiters)
+'   DecoctionInKg = mc * vm / bothalf
+   
+   DecoctionWeight = ConvertWeight("Kg", DecoctionInKg, WeightUnits)
+
+}
+DecoctionTemp = function(VolumeUnits, VolumeIn As Single, _
+                             ByVal WeightUnits, MaltWeight, WeightDecocted As Single, _
+                             ByVal TempStart As Single, _
+                             ByVal TempFinal, MaltHeatCap As Single) As Single
+   if (WeightDecocted = 0) {
+      DecoctionTemp = TempStart
+      return ?
+   }
+   Dim VolumeInLiters As Single
+   VolumeInLiters = ConvertVolume(VolumeUnits, VolumeIn, "Liters")
+   Dim WeightInKg As Single
+   WeightInKg = ConvertWeight(WeightUnits, MaltWeight, "Kg")
+   Dim DecoctionInKg As Single
+   DecoctionInKg = ConvertWeight(WeightUnits, WeightDecocted, "Kg")
+   Dim vm As Single
+   Dim mc As Single
+   vm = WeightInKg + VolumeInLiters
+   mc = (MaltHeatCap * WeightInKg + VolumeInLiters) / (WeightInKg + VolumeInLiters)
+   
+   DecoctionTemp = -(mc * vm / DecoctionInKg * (TempStart - TempFinal) - TempStart)
+
+}
+ConvertSRM = function(MCU As Single) As Single
+   ' Formula from Dan A. Morey
+   ConvertSRM = 1.4922 * (MCU ^ 0.6859)
+}
+ABV = function(GravityUnitsIn, OG As Single, Optional ByVal FG As Single) As Single
+   Dim OGinSG As Single
+   Dim FGinSG As Single
+   OGinSG = ConvertGravity(GravityUnitsIn, OG, "SG")
+   if (FG = 0) {
+      FGinSG = 1 + (OGinSG - 1) / 4
+   } else {
+      FGinSG = ConvertGravity(GravityUnitsIn, FG, "SG")
+   }
+   ABV = (OGinSG - FGinSG) * 105 * 1.25
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://www.cargill.com/food/wcm/groups/public/@cseg/@food/@all/documents/document/na3051727.pdf
+Brewing Calculations
+Residual or Real Extract Gives a true measure of the residual sugar in beer.
+RE = AE + .4654(ABW) - .003615(ABW)2 / .9962
+Original Gravity.
+OG = 100[(2.0665(ABW) + RE)/(100 + 1.0665(ABW))]
+Alcohol
+ABW = (ABV x 0.791) / Specific Gravity of beer
+ABV = (ABW x Specific Gravity of Beer) / 0.791
+Approximate Calories per 12 oz.
+Calories = [Grams Alcohol] x 7.0 calories/gram + [Grams Carbohydrate] x 4.0 calories/gram
+Calories = [(Specific Gravity x 355) x ABW/100] x 7.0 + [(Specific Gravity x 355) x RE/100] x 4.0
+Real or Apparent Degree of Attenuation
+RDA = 100((OG - RE)/OG)
+ADA = 100((OG - AE)/OG)
+Extract in Wort Lincoln Equation.
+E(lbs. extract) = [(Wort Volume (Bbl)) (2.58/(1/OG(oP) - .00382))]
+Theoretical Maximum Extract
+TME = (Total Grist Weight (lbs.) x Weighted average Coarse Grind Extract As is of grain bill)
+Brewhouse Efficiency
+Brewhouse Efficiency (%) = (Actual lbs. of extract in wort (Lincoln Eqtn.) / Theoretical Maximum Extract) x 100%
+Mash or Kettle Salts
+CaSO4 - approx. 29% Ca++ by weight
+4.0 grams per Barrel of water or wort = 10 ppm as Ca++
+CaCl2 - approx. 36% Ca++ by weight
+3.25 grams per Barrel of water or wort = 10 ppm as Ca++

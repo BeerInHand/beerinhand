@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- BeerXML from Hopville.com -->
+<RECIPES>
+<RECIPE>
+  <VERSION>1</VERSION>
+  <NAME>Comet Tail Ale</NAME>
+  <TYPE>All Grain</TYPE>
+  <BREWER>Jimmy Crackcorn</BREWER>
+  <BATCH_SIZE>39.746823732</BATCH_SIZE>
+  <BOIL_SIZE>45.424941408</BOIL_SIZE>
+  <BOIL_TIME>90</BOIL_TIME>
+  <EFFICIENCY>75.0</EFFICIENCY>
+  <FERMENTATION_STAGES>0</FERMENTATION_STAGES>
+  <STYLE>
+    <VERSION>1</VERSION>
+    <NAME>American Pale Ale</NAME>
+    <CATEGORY>American ale</CATEGORY>
+    <CATEGORY_NUMBER>10</CATEGORY_NUMBER>
+    <STYLE_LETTER>A</STYLE_LETTER>
+    <TYPE>Ale</TYPE>
+    <STYLE_GUIDE>BJCP</STYLE_GUIDE>
+    <OG_MIN>1.045</OG_MIN>
+    <OG_MAX>1.060</OG_MAX>
+    <FG_MIN>1.010</FG_MIN>
+    <FG_MAX>1.015</FG_MAX>
+    <IBU_MIN>30.0</IBU_MIN>
+    <IBU_MAX>45.0</IBU_MAX>
+    <COLOR_MIN>5.0</COLOR_MIN>
+    <COLOR_MAX>14.0</COLOR_MAX>
+    <ABV_MIN>4.5</ABV_MIN>
+    <ABV_MAX>6.2</ABV_MAX>
+  </STYLE>
+  <FERMENTABLES>
+    <FERMENTABLE>
+      <VERSION>1</VERSION>
+      <NAME>American Two-row Pale</NAME>
+      <TYPE>Grain</TYPE>
+      <AMOUNT>9.0718474</AMOUNT>
+      <DISPLAY_AMOUNT>320 ozs</DISPLAY_AMOUNT>
+      <YIELD>80.4</YIELD>
+      <POTENTIAL>1.037</POTENTIAL>
+      <COLOR>1.0</COLOR>
+      <ADD_AFTER_BOIL>FALSE</ADD_AFTER_BOIL>
+      <ORIGIN></ORIGIN>
+      <NOTES></NOTES>
+      <COARSE_FINE_DIFF></COARSE_FINE_DIFF>
+      <MOISTURE></MOISTURE>
+      <DIASTATIC_POWER></DIASTATIC_POWER>
+      <PROTEIN></PROTEIN>
+      <MAX_IN_BATCH></MAX_IN_BATCH>
+      <RECOMMEND_MASH>TRUE</RECOMMEND_MASH>
+      <DISPLAY_COLOR>1L</DISPLAY_COLOR>
+    </FERMENTABLE>
+    <FERMENTABLE>
+      <VERSION>1</VERSION>
+      <NAME>Cara 20</NAME>
+      <TYPE>Grain</TYPE>
+      <AMOUNT>0.45359237</AMOUNT>
+      <DISPLAY_AMOUNT>16 ozs</DISPLAY_AMOUNT>
+      <YIELD>73.9</YIELD>
+      <POTENTIAL>1.034</POTENTIAL>
+      <COLOR>18.0</COLOR>
+      <ADD_AFTER_BOIL>FALSE</ADD_AFTER_BOIL>
+      <ORIGIN></ORIGIN>
+      <NOTES></NOTES>
+      <COARSE_FINE_DIFF></COARSE_FINE_DIFF>
+      <MOISTURE></MOISTURE>
+      <DIASTATIC_POWER></DIASTATIC_POWER>
+      <PROTEIN></PROTEIN>
+      <MAX_IN_BATCH></MAX_IN_BATCH>
+      <RECOMMEND_MASH>TRUE</RECOMMEND_MASH>
+      <DISPLAY_COLOR>18L</DISPLAY_COLOR>
+    </FERMENTABLE>
+    <FERMENTABLE>
+      <VERSION>1</VERSION>
+      <NAME>Cara 8 (Cara-Pils)</NAME>
+      <TYPE>Grain</TYPE>
+      <AMOUNT>0.45359237</AMOUNT>
+      <DISPLAY_AMOUNT>16 ozs</DISPLAY_AMOUNT>
+      <YIELD>65.2</YIELD>
+      <POTENTIAL>1.030</POTENTIAL>
+      <COLOR>8.0</COLOR>
+      <ADD_AFTER_BOIL>FALSE</ADD_AFTER_BOIL>
+      <ORIGIN></ORIGIN>
+      <NOTES></NOTES>
+      <COARSE_FINE_DIFF></COARSE_FINE_DIFF>
+      <MOISTURE></MOISTURE>
+      <DIASTATIC_POWER></DIASTATIC_POWER>
+      <PROTEIN></PROTEIN>
+      <MAX_IN_BATCH></MAX_IN_BATCH>
+      <RECOMMEND_MASH>TRUE</RECOMMEND_MASH>
+      <DISPLAY_COLOR>8L</DISPLAY_COLOR>
+    </FERMENTABLE>
+  </FERMENTABLES>
+  <HOPS>
+    <HOP>
+      <VERSION>1</VERSION>
+      <NAME>Comet</NAME>
+      <ALPHA>11.0</ALPHA>
+      <AMOUNT>0.015</AMOUNT>
+      <DISPLAY_AMOUNT>0.529 ozs</DISPLAY_AMOUNT>
+      <USE>Boil</USE>
+      <TIME>90</TIME>
+      <FORM>Leaf</FORM>
+      <NOTES>Very bitter hops - use sparingly with other hops
+Use for: Bittering only
+Substitutes: N/A</NOTES>
+      <TYPE>Bittering</TYPE>
+      <BETA>4.0</BETA>
+      <HSI>50.0</HSI>
+      <ORIGIN>U.S.</ORIGIN>
+    </HOP>
+    <HOP>
+      <VERSION>1</VERSION>
+      <NAME>Comet</NAME>
+      <ALPHA>11.0</ALPHA>
+      <AMOUNT>0.015</AMOUNT>
+      <DISPLAY_AMOUNT>0.529 ozs</DISPLAY_AMOUNT>
+      <USE>Boil</USE>
+      <TIME>75</TIME>
+      <FORM>Leaf</FORM>
+      <NOTES>Very bitter hops - use sparingly with other hops
+Use for: Bittering only
+Substitutes: N/A</NOTES>
+      <TYPE>Bittering</TYPE>
+      <BETA>4.0</BETA>
+      <HSI>50.0</HSI>
+      <ORIGIN>U.S.</ORIGIN>
+    </HOP>
+    <HOP>
+      <VERSION>1</VERSION>
+      <NAME>Comet</NAME>
+      <ALPHA>11.0</ALPHA>
+      <AMOUNT>0.015</AMOUNT>
+      <DISPLAY_AMOUNT>0.529 ozs</DISPLAY_AMOUNT>
+      <USE>Boil</USE>
+      <TIME>60</TIME>
+      <FORM>Leaf</FORM>
+      <NOTES>Very bitter hops - use sparingly with other hops
+Use for: Bittering only
+Substitutes: N/A</NOTES>
+      <TYPE>Bittering</TYPE>
+      <BETA>4.0</BETA>
+      <HSI>50.0</HSI>
+      <ORIGIN>U.S.</ORIGIN>
+    </HOP>
+    <HOP>
+      <VERSION>1</VERSION>
+      <NAME>Comet</NAME>
+      <ALPHA>11.0</ALPHA>
+      <AMOUNT>0.015</AMOUNT>
+      <DISPLAY_AMOUNT>0.529 ozs</DISPLAY_AMOUNT>
+      <USE>Boil</USE>
+      <TIME>45</TIME>
+      <FORM>Leaf</FORM>
+      <NOTES>Very bitter hops - use sparingly with other hops
+Use for: Bittering only
+Substitutes: N/A</NOTES>
+      <TYPE>Bittering</TYPE>
+      <BETA>4.0</BETA>
+      <HSI>50.0</HSI>
+      <ORIGIN>U.S.</ORIGIN>
+    </HOP>
+    <HOP>
+      <VERSION>1</VERSION>
+      <NAME>Comet</NAME>
+      <ALPHA>11.0</ALPHA>
+      <AMOUNT>0.015</AMOUNT>
+      <DISPLAY_AMOUNT>0.529 ozs</DISPLAY_AMOUNT>
+      <USE>Boil</USE>
+      <TIME>30</TIME>
+      <FORM>Leaf</FORM>
+      <NOTES>Very bitter hops - use sparingly with other hops
+Use for: Bittering only
+Substitutes: N/A</NOTES>
+      <TYPE>Bittering</TYPE>
+      <BETA>4.0</BETA>
+      <HSI>50.0</HSI>
+      <ORIGIN>U.S.</ORIGIN>
+    </HOP>
+    <HOP>
+      <VERSION>1</VERSION>
+      <NAME>Comet</NAME>
+      <ALPHA>11.0</ALPHA>
+      <AMOUNT>0.015</AMOUNT>
+      <DISPLAY_AMOUNT>0.529 ozs</DISPLAY_AMOUNT>
+      <USE>Boil</USE>
+      <TIME>15</TIME>
+      <FORM>Leaf</FORM>
+      <NOTES>Very bitter hops - use sparingly with other hops
+Use for: Bittering only
+Substitutes: N/A</NOTES>
+      <TYPE>Bittering</TYPE>
+      <BETA>4.0</BETA>
+      <HSI>50.0</HSI>
+      <ORIGIN>U.S.</ORIGIN>
+    </HOP>
+    <HOP>
+      <VERSION>1</VERSION>
+      <NAME>Comet</NAME>
+      <ALPHA>11.0</ALPHA>
+      <AMOUNT>0.015</AMOUNT>
+      <DISPLAY_AMOUNT>0.529 ozs</DISPLAY_AMOUNT>
+      <USE>Boil</USE>
+      <TIME>1</TIME>
+      <FORM>Leaf</FORM>
+      <NOTES>Very bitter hops - use sparingly with other hops
+Use for: Bittering only
+Substitutes: N/A</NOTES>
+      <TYPE>Bittering</TYPE>
+      <BETA>4.0</BETA>
+      <HSI>50.0</HSI>
+      <ORIGIN>U.S.</ORIGIN>
+    </HOP>
+  </HOPS>
+  <YEASTS>
+  </YEASTS>
+  <MISCS>
+  </MISCS>
+  <WATERS/>
+  <MASHS>
+  </MASHS>
+  <NOTES>Good Brew day.</NOTES>
+  <TASTE_NOTES>Delicious - don&amp;apos;t let anyone tell you Comet is not a good finishing hop</TASTE_NOTES>
+  <TASTE_RATING>50.0</TASTE_RATING>
+  <OG>1.056</OG>
+  <FG>1.012</FG>
+  <EST_OG>1.057</EST_OG>
+  <EST_FG>1.014</EST_FG>
+  <EST_COLOR>4</EST_COLOR>
+  <IBU>51.0</IBU>
+  <IBU_METHOD>Tinseth</IBU_METHOD>
+  <EST_ABV>5.7</EST_ABV>
+  <CALORIES>188</CALORIES>
+  <DISPLAY_BATCH_SIZE>10.5 gal</DISPLAY_BATCH_SIZE>
+  <DISPLAY_BOIL_SIZE>12.0 gal</DISPLAY_BOIL_SIZE>
+</RECIPE>
+</RECIPES>

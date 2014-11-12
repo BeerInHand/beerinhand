@@ -1,0 +1,2 @@
+<cfset ApplicationStop() />
+<cfset OnSessionStart() />

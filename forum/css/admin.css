@@ -1,0 +1,139 @@
+#divForum .row_name p, #divForum .row_name p, #divForum .row_0 p, #divForum .row_1 p { margin: 0; padding: 3px 0px 10px 0px;  }
+#divForum .dataset .row_0 p, #divForum .dataset .row_1 p { padding: 10px; }
+
+#divForum h1 { margin-bottom: -20px; }
+#divForum h4 { padding: 5px 0; }
+#divForumLeft {
+	width: 150px;
+	height: 100%;
+	float: left;
+}
+#divForumLeft a {
+	width: 128px;
+	height: 19px;
+	padding: 3px 10px;
+	float: left;
+	text-decoration: none;
+	border-top-width: 0px;
+}
+#divForumLeft .nav_title {
+	width: 128px;
+	height: 19px;
+	padding: 3px 10px;
+}
+#divForumLeft .nav_breaker {
+	height: 25px;
+	clear: both;
+}
+#divForumRight {
+	width: 800px;
+	float: right;
+}
+#divForum .title_row p {
+	padding: 5px;
+	clear: both;
+	border-bottom: 1px solid #7A4000;
+	font-size: 12pt;
+}		
+#divForum .name_row {
+	height: 32px;
+	clear: both;
+	margin: 5px 0px 0px 0px;
+}
+#divForum .name_row p {
+	padding: 7px 0px 4px 0px;
+}
+#divForum .datatab input[type="checkbox"] {
+	margin-left: 3px;
+}
+#divForum .edit_row {
+	background: url("../images/bg.jpg") repeat-x top;
+	width: 100%;
+	height: 32px;
+	clear: both;
+	border-bottom: 1px solid #7A4000;
+	margin: 0px 0px 0px 0px;
+}
+#divForum .edit_row p {
+	font-size: 18px;
+	color: white;
+	padding: 7px 0px 4px 10px;
+}
+#divForum .top_input_misc {
+	float: right;
+	z-index: 1;
+	width: 250px;
+	height: 20px;
+	padding: 10px 10px 0px 0px;
+}
+#divForum .records {
+	width: 260px;
+	height: 20px;
+	float: right;
+	text-align: right;
+	padding: 10px 10px 0px 0px;
+}
+#divForum .input_error {
+	color: red;
+	padding: 20px 0px 0px 0px;
+	margin: 0px 0px 0px -40px;
+}
+#divForum .input_name {
+	width: 200px;
+	float: left;
+	margin: 0px 0px 0px 10px;
+}
+	
+#divForum .inputs_01 {
+	width: 300px;
+	margin: 5px 0px 4px 0px;
+}
+#divForum .inputs_02 {
+	width: 304px;
+	margin: 5px 0px 4px 0px;
+}
+#divForum .inputs_cb {
+	width: 15px;
+	float: left;
+	display: block;
+	margin: 7px 0px 4px 0px;
+}
+#divForum .cb_text { width: 215px; float: left; padding: 10px 0px 0px 0px; }
+#divForum .cb_remove { width: 70px; float: left; padding: 10px 5px 0px 0px; text-align: right; }
+
+#divForum .ta_edit {
+	width: 300px;
+	height: 150px;
+	margin: 5px 0px 4px 0px;
+	overflow: auto;
+}
+	
+#divForum .bottom_options {
+	background-color: #DFF7FF;
+	height: 20px;
+	text-align: right;
+	padding: 2px 10px 0px 0px;
+	}
+	.bottom_options p {
+		padding: 0px;
+		font-size: 10px;
+		}
+		
+#input_btns {
+	padding: 5px;
+	border-top-width: 0;
+}
+
+		form { padding: 0px; margin: 0px; }
+		
+		.filter_btn {
+			float: left;
+			celar: none;
+			margin: 0px 0px 0px 3px;
+			}
+		.filter_input {
+			float: left;
+			width: 150px;
+			padding: 3px 0px 0px 5px;
+			height: 17px;
+			}

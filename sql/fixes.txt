@@ -1,0 +1,59 @@
+update recipe set re_hunits = 'Ounces' where re_hunits='Oz';
+
+update recipe,
+(select rg_reid, sum(rg_amount) as sum_grn from recipegrains group by rg_reid) as grn 
+ set re_grnamt = sum_grn
+where re_reid = rg_reid;
+
+update recipe,
+(select rg_reid, sum(rg_amount) as sum_grn from recipegrains where rg_mash group by rg_reid) as grn 
+ set re_mashamt = sum_grn
+where re_reid = rg_reid;
+
+update recipe,
+(select rh_reid, sum(rh_amount) as sum_hop from recipehops group by rh_reid) as hop
+ set re_hopamt = sum_hop
+where re_reid = rh_reid;
+
+update recipe,
+(select rg_reid, count(rg_amount) as cnt_grn from recipegrains group by rg_reid) as grn 
+ set re_grncnt = cnt_grn
+where re_reid = rg_reid;
+
+update recipe,
+(select rh_reid, count(rh_amount) as cnt_hop from recipehops group by rh_reid) as hop
+ set re_hopcnt = cnt_hop
+where re_reid = rh_reid;
+
+update recipegrains, recipe
+set rg_pct = round(rg_amount/re_grnamt * 100,1)
+where rg_reid = re_reid;
+
+update recipeyeast 
+set ry_note = ''
+where ry_note = concat(ry_yeast, " ", ry_mfg, " ", ry_mfgno);
+
+update recipeyeast 
+set ry_note = trim(replace(ry_note, concat(ry_yeast, " ", ry_mfg, " ", ry_mfgno), ""))
+ where trim(ry_note)<>trim(replace(ry_note, concat(ry_yeast, " ", ry_mfg, " ", ry_mfgno), ""));
+
+update recipeyeast 
+set ry_note = trim(replace(ry_note, concat(ry_yeast, " ", ry_mfgno), ""))
+ where trim(ry_note)<>trim(replace(ry_note, concat(ry_yeast, " ", ry_mfgno), ""));
+
+update recipeyeast 
+set ry_note = trim(replace(ry_note, ry_yeast, ""))
+ where trim(ry_note)<>trim(replace(ry_note, ry_yeast, ""));
+
+update recipeyeast 
+set ry_note = trim(replace(ry_note, concat(ry_mfg, " ", ry_mfgno), ""))
+ where trim(ry_note)<>trim(replace(ry_note, concat(ry_mfg, " ", ry_mfgno), ""));
+
+update recipeyeast set ry_note = '' where ry_note = ry_mfgno;
+
+update recipeyeast set ry_note = '' where ry_note=ry_yeast;
+ 
+update recipeyeast set ry_note=trim(ry_note);
+
+update recipeyeast set ry_note = replace(ry_note, "  ", "") where ry_note <> replace(ry_note, "  ", "");
+ 

@@ -1,0 +1,459 @@
+CREATE TABLE bjcpstyles (
+	st_stid							INT(11) NOT NULL AUTO_INCREMENT,
+	st_category						VARCHAR(2) DEFAULT '',
+	st_style							VARCHAR(35) DEFAULT '',
+	st_subcategory					VARCHAR(3) DEFAULT '',
+	st_substyle						VARCHAR(50) DEFAULT '',
+	st_og_min						DECIMAL(4,3) DEFAULT '0.000',
+	st_og_max						DECIMAL(4,3) DEFAULT '0.000',
+	st_og_gap						DECIMAL(4,3) DEFAULT '0.000',
+	st_fg_min						DECIMAL(4,3) DEFAULT '0.000',
+	st_fg_max						DECIMAL(4,3) DEFAULT '0.000',
+	st_fg_gap						DECIMAL(4,3) DEFAULT '0.000',
+	st_ibu_min						DECIMAL(4,1) DEFAULT '0.0',
+	st_ibu_max						DECIMAL(4,1) DEFAULT '0.0',
+	st_ibu_gap						DECIMAL(4,1) DEFAULT '0.0',
+	st_srm_min						DECIMAL(4,1) DEFAULT '0.0',
+	st_srm_max						DECIMAL(4,1) DEFAULT '0.0',
+	st_srm_gap						DECIMAL(4,1) DEFAULT '0.0',
+	st_abv_min						DECIMAL(3,1) DEFAULT '0.0',
+	st_abv_max						DECIMAL(3,1) DEFAULT '0.0',
+	st_abv_gap						DECIMAL(3,1) DEFAULT '0.0',
+	st_co2_min						DECIMAL(3,2) DEFAULT '0.00',
+	st_co2_max						DECIMAL(3,2) DEFAULT '0.00',
+	st_co2_gap						DECIMAL(3,2) DEFAULT '0.00',
+	st_aroma							VARCHAR(5000) DEFAULT '',
+	st_appearance					VARCHAR(5000) DEFAULT '',
+	st_flavor						VARCHAR(5000) DEFAULT '',
+	st_mouthfeel					VARCHAR(5000) DEFAULT '',
+	st_impression					VARCHAR(5000) DEFAULT '',
+	st_ingredients					VARCHAR(5000) DEFAULT '',
+	st_examples						VARCHAR(5000) DEFAULT '',
+	st_history						VARCHAR(5000) DEFAULT '',
+	st_comments						VARCHAR(5000) DEFAULT '',
+	st_varieties					VARCHAR(5000) DEFAULT '',
+	st_exceptions					VARCHAR(5000) DEFAULT '',
+  PRIMARY KEY (st_stid),
+  UNIQUE KEY st_substyle (st_substyle)
+) ENGINE=MYISAM;
+
+
+CREATE TABLE brewnuggets (
+	bn_id								INT(11) NOT NULL AUTO_INCREMENT,
+	bn_category						VARCHAR(15) DEFAULT NULL,
+	bn_topic							VARCHAR(30) DEFAULT NULL,
+	bn_info							TEXT,
+	bn_pdaflag						TINYINT(4) DEFAULT '0',
+  UNIQUE KEY bn_id (bn_id)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE eqmtheatsource (
+	eh_ehid							INT(11) NOT NULL AUTO_INCREMENT,
+	eh_eqid							INT(11) DEFAULT '0',
+	eh_hsid							INT(11) DEFAULT '0',
+  PRIMARY KEY (eh_ehid),
+  KEY eh_ehid (eh_ehid),
+  KEY eh_hsid (eh_hsid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE equipment (
+	eq_eqid							INT(11) NOT NULL AUTO_INCREMENT,
+	eq_desc							VARCHAR(10) DEFAULT NULL,
+  PRIMARY KEY (eq_eqid),
+  KEY eq_eqid (eq_eqid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE grains (
+	gr_grid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	gr_type							VARCHAR(25) NOT NULL,
+	gr_lvb							DECIMAL(4,1) DEFAULT '0.0',
+	gr_sgc							DECIMAL(4,3) DEFAULT '0.000',
+	gr_lintner						DOUBLE DEFAULT '0',
+	gr_mash							TINYINT(1) DEFAULT '0',
+	gr_cgdb							TINYINT(3) UNSIGNED DEFAULT '0',
+	gr_mc								DECIMAL(4,3) DEFAULT '0.000',
+	gr_fgdb							TINYINT(3) UNSIGNED DEFAULT '0',
+	gr_fcdif							TINYINT(4) DEFAULT '0',
+	gr_maltster						VARCHAR(25) DEFAULT '',
+	gr_country						VARCHAR(15) DEFAULT NULL,
+	gr_info							VARCHAR(1000) DEFAULT NULL,
+	gr_url							VARCHAR(100) DEFAULT '',
+	gr_dla							TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (gr_grid),
+  UNIQUE KEY gr_type (gr_type, gr_maltster)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE heatsource (
+	hs_hsid							INT(11) NOT NULL AUTO_INCREMENT,
+	hs_desc							VARCHAR(12) DEFAULT NULL,
+	hs_lvol							DOUBLE DEFAULT '0',
+	hs_lstemp						DOUBLE DEFAULT '0',
+	hs_letemp						DOUBLE DEFAULT '0',
+	hs_ltime							INT(11) DEFAULT '0',
+	hs_low							DOUBLE DEFAULT '0',
+	hs_lboil							INT(11) DEFAULT '0',
+	hs_lfvol							DOUBLE DEFAULT '0',
+	hs_levap							DOUBLE DEFAULT '0',
+	hs_mvol							DOUBLE DEFAULT '0',
+	hs_mstemp						DOUBLE DEFAULT '0',
+	hs_metemp						DOUBLE DEFAULT '0',
+	hs_mtime							INT(11) DEFAULT '0',
+	hs_medium						DOUBLE DEFAULT '0',
+	hs_mboil							INT(11) DEFAULT '0',
+	hs_mfvol							DOUBLE DEFAULT '0',
+	hs_mevap							DOUBLE DEFAULT '0',
+	hs_hvol							DOUBLE DEFAULT '0',
+	hs_hstemp						DOUBLE DEFAULT '0',
+	hs_hetemp						DOUBLE DEFAULT '0',
+	hs_htime							INT(11) DEFAULT '0',
+	hs_high							DOUBLE DEFAULT '0',
+	hs_hboil							INT(11) DEFAULT '0',
+	hs_hfvol							DOUBLE DEFAULT '0',
+	hs_hevap							DOUBLE DEFAULT '0',
+	hs_tunits						VARCHAR(10) DEFAULT NULL,
+	hs_vunits						VARCHAR(12) DEFAULT NULL,
+  PRIMARY KEY (hs_hsid),
+  KEY hs_hsid (hs_hsid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE hops (
+	hp_hpid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	hp_hop							VARCHAR(25) NOT NULL DEFAULT '',
+	hp_aalow							DECIMAL(3,1) UNSIGNED DEFAULT '0.0',
+	hp_aahigh						DECIMAL(3,1) UNSIGNED DEFAULT '0.0',
+	hp_grown							VARCHAR(15) DEFAULT '',
+	hp_profile						VARCHAR(100) DEFAULT '',
+	hp_use							VARCHAR(100) DEFAULT '',
+	hp_example						VARCHAR(100) DEFAULT '',
+	hp_sub							VARCHAR(100) DEFAULT '',
+	hp_info							VARCHAR(1000) DEFAULT '',
+	hp_dry							TINYINT(1) DEFAULT '0',
+	hp_aroma							TINYINT(1) DEFAULT '0',
+	hp_bitter						TINYINT(1) DEFAULT '0',
+	hp_finish						TINYINT(1) DEFAULT '0',
+	hp_dla							TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (hp_hpid),
+  UNIQUE KEY hp_type (hp_hop, hp_grown)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE mashhead (
+	mh_schid							INT(11) NOT NULL AUTO_INCREMENT,
+	mh_head							VARCHAR(25) DEFAULT NULL,
+	mh_type							VARCHAR(10) DEFAULT NULL,
+	mh_tunits						VARCHAR(10) DEFAULT NULL,
+	mh_ratio							DOUBLE DEFAULT '0',
+	mh_viunits						VARCHAR(12) DEFAULT NULL,
+	mh_units							VARCHAR(12) DEFAULT NULL,
+	mh_desc							VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (mh_schid),
+  KEY mh_schid (mh_schid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE mashstep (
+	ms_id								INT(11) NOT NULL AUTO_INCREMENT,
+	ms_schid							INT(11) DEFAULT NULL,
+	ms_step							DOUBLE DEFAULT NULL,
+	ms_offset						DOUBLE DEFAULT NULL,
+	ms_ftemp							DOUBLE DEFAULT NULL,
+	ms_tline							DOUBLE DEFAULT NULL,
+	ms_action						VARCHAR(10) DEFAULT NULL,
+	ms_ratio							DOUBLE DEFAULT NULL,
+  KEY ms_id (ms_id),
+  KEY ms_schid (ms_schid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE misc (
+	mi_miid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	mi_type							VARCHAR(25) NOT NULL,
+	mi_use							VARCHAR(25) DEFAULT NULL,
+	mi_utype							VARCHAR(1) DEFAULT 'V',
+	mi_unit							VARCHAR(12) DEFAULT NULL,
+	mi_phase							VARCHAR(8) DEFAULT NULL,
+	mi_info							VARCHAR(1000) DEFAULT NULL,
+	mi_dla							TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (mi_miid),
+  UNIQUE KEY mi_type (mi_type, mi_utype)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipe (
+	re_reid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	re_usid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	re_name							VARCHAR(35) DEFAULT NULL,
+	re_volume						DECIMAL(6,2) DEFAULT '0.00',
+	re_boilvol						DECIMAL(6,2) DEFAULT '0.00',
+	re_style							VARCHAR(35) DEFAULT NULL,
+	re_eff							TINYINT(3) UNSIGNED DEFAULT '0',
+	re_expgrv						DECIMAL(4,3) DEFAULT '0.000',
+	re_expsrm						DECIMAL(4,1) DEFAULT '0.0',
+	re_expibu						DECIMAL(4,1) DEFAULT '0.0',
+	re_prime							VARCHAR(500) DEFAULT NULL,
+	re_vunits						VARCHAR(12) DEFAULT NULL,
+	re_munits						VARCHAR(12) DEFAULT NULL,
+	re_gunits						VARCHAR(6) DEFAULT NULL,
+	re_hunits						VARCHAR(12) DEFAULT NULL,
+	re_tunits						VARCHAR(10) DEFAULT NULL,
+	re_brewed						date DEFAULT NULL,
+	re_type							VARCHAR(10) DEFAULT NULL,
+	re_grnamt						DECIMAL(7,2) DEFAULT '0.00',
+	re_mashamt						DECIMAL(7,2) DEFAULT '0.00',
+	re_hopamt						DECIMAL(7,2) DEFAULT '0.00',
+	re_proc							VARCHAR(5000) DEFAULT NULL,
+	re_hopcnt						TINYINT(3) UNSIGNED DEFAULT '0',
+	re_grncnt						TINYINT(3) UNSIGNED DEFAULT '0',
+	re_eunits						VARCHAR(5) DEFAULT 'SG',
+  PRIMARY KEY (re_reid),
+  KEY re_usid (re_usid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipedates (
+	rd_rdid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	rd_reid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rd_usid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rd_date							date DEFAULT NULL,
+	rd_type							VARCHAR(10) DEFAULT NULL,
+	rd_gravity						DECIMAL(4,3) DEFAULT '0.000',
+	rd_temp							DECIMAL(4,1) DEFAULT '0.0',
+	rd_note							VARCHAR(2000) DEFAULT NULL,
+  PRIMARY KEY (rd_rdid),
+  KEY rd_reid (rd_reid),
+  KEY rd_usid (rd_usid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipegrains (
+	rg_rgid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	rg_reid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rg_usid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rg_type							VARCHAR(25) NOT NULL,
+	rg_amount						DECIMAL(6,2) DEFAULT '0.00',
+	rg_sgc							DECIMAL(4,3) DEFAULT '0.000',
+	rg_lvb							DECIMAL(4,1) DEFAULT '0.0',
+	rg_mash							TINYINT(1) DEFAULT '0',
+	rg_maltster						VARCHAR(25) DEFAULT '',
+	rg_pct							DECIMAL(4,1) DEFAULT '0.0',
+  PRIMARY KEY (rg_rgid),
+  KEY rg_reid (rg_reid),
+  KEY rg_usid (rg_usid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipehops (
+	rh_rhid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	rh_reid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rh_usid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rh_hop							VARCHAR(25) DEFAULT NULL,
+	rh_aau							DECIMAL(3,1) DEFAULT '0.0',
+	rh_amount						DECIMAL(6,2) DEFAULT '0.00',
+	rh_form							VARCHAR(6) DEFAULT NULL,
+	rh_time							TINYINT(3) UNSIGNED DEFAULT '0',
+	rh_ibu							DECIMAL(4,1) DEFAULT '0.0',
+	rh_grown							VARCHAR(15) DEFAULT NULL,
+	rh_when							VARCHAR(4) DEFAULT NULL,
+  PRIMARY KEY (rh_rhid),
+  KEY rh_reid (rh_reid),
+  KEY rh_usid (rh_usid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipemashsteps (
+	rs_id								INT(11) NOT NULL AUTO_INCREMENT,
+	rs_rcpid							INT(11) NOT NULL,
+	rs_step							DOUBLE DEFAULT '0',
+	rs_offstep						DOUBLE DEFAULT '0',
+	rs_offset						DOUBLE DEFAULT '0',
+	rs_action						VARCHAR(10) DEFAULT NULL,
+	rs_ctemp							DOUBLE DEFAULT '0',
+	rs_atemp							DOUBLE DEFAULT '0',
+	rs_ftemp							DOUBLE DEFAULT '0',
+	rs_cvol							DOUBLE DEFAULT '0',
+	rs_fvol							DOUBLE DEFAULT '0',
+	rs_amount						DOUBLE DEFAULT '0',
+	rs_note							VARCHAR(100) DEFAULT NULL,
+	rs_vunits						VARCHAR(12) DEFAULT NULL,
+	rs_viunits						VARCHAR(12) DEFAULT NULL,
+	rs_munits						VARCHAR(12) DEFAULT NULL,
+	rs_tunits						VARCHAR(10) DEFAULT NULL,
+	rs_tline							DOUBLE DEFAULT '0',
+	rs_desc							VARCHAR(40) DEFAULT NULL,
+	rs_ratio							DOUBLE DEFAULT '0',
+  PRIMARY KEY (rs_id),
+  KEY rs_rcpid (rs_rcpid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipemisc (
+	rm_rmid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	rm_reid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rm_usid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	rm_type							VARCHAR(25) DEFAULT NULL,
+	rm_amount						DECIMAL(6,2) DEFAULT '0.00',
+	rm_unit							VARCHAR(12) DEFAULT NULL,
+	rm_utype							VARCHAR(1) DEFAULT NULL,
+	rm_note							VARCHAR(25) DEFAULT NULL,
+	rm_phase							VARCHAR(8) DEFAULT NULL,
+	rm_action						VARCHAR(12) DEFAULT NULL,
+	rm_offset						TINYINT(3) UNSIGNED DEFAULT '0',
+	rm_added							VARCHAR(15) DEFAULT NULL,
+	rm_sort							VARCHAR(8) DEFAULT NULL,
+  PRIMARY KEY (rm_rmid),
+  KEY rm_reid (rm_reid),
+  KEY rm_usid (rm_usid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipeprocedures (
+	rp_id								INT(11) NOT NULL AUTO_INCREMENT,
+	rp_rcpid							INT(11) NOT NULL,
+	rp_phase							VARCHAR(8) DEFAULT NULL,
+	rp_action						VARCHAR(15) DEFAULT NULL,
+	rp_desc							VARCHAR(25) DEFAULT NULL,
+	rp_expstart						datetime DEFAULT NULL,
+	rp_explen						INT(11) DEFAULT '0',
+	rp_expend						datetime DEFAULT NULL,
+	rp_start							datetime DEFAULT NULL,
+	rp_length						DOUBLE DEFAULT NULL,
+	rp_end							datetime DEFAULT NULL,
+	rp_started						TINYINT(4) DEFAULT '0',
+	rp_ended							TINYINT(4) DEFAULT '0',
+	rp_gravity						DOUBLE DEFAULT NULL,
+	rp_step							DOUBLE DEFAULT NULL,
+	rp_ctemp							DOUBLE DEFAULT NULL,
+	rp_atemp							DOUBLE DEFAULT NULL,
+	rp_ftemp							DOUBLE DEFAULT NULL,
+	rp_cvol							DOUBLE DEFAULT NULL,
+	rp_fvol							DOUBLE DEFAULT NULL,
+	rp_amount						DOUBLE DEFAULT NULL,
+	rp_vunits						VARCHAR(12) DEFAULT NULL,
+	rp_viunits						VARCHAR(12) DEFAULT NULL,
+	rp_munits						VARCHAR(12) DEFAULT NULL,
+	rp_tunits						VARCHAR(10) DEFAULT NULL,
+	rp_note							VARCHAR(250) DEFAULT NULL,
+	rp_ratio							DOUBLE DEFAULT '0',
+	rp_anchor						TINYINT(4) DEFAULT '0',
+	rp_aid							INT(11) DEFAULT '0',
+	rp_aoffset						INT(11) DEFAULT '0',
+	rp_ets							INT(11) DEFAULT '0',
+	rp_ete							INT(11) DEFAULT '0',
+	rp_awhich						VARCHAR(5) DEFAULT NULL,
+	rp_awhen							VARCHAR(6) DEFAULT NULL,
+	rp_eqid							INT(11) DEFAULT '0',
+	rp_hsid							INT(11) DEFAULT '0',
+	rp_throttle						INT(11) DEFAULT '0',
+  UNIQUE KEY rp_id (rp_id),
+  KEY rp_aid (rp_aid),
+  KEY rp_eqid (rp_eqid),
+  KEY rp_hsid (rp_hsid),
+  KEY rp_rcpid (rp_rcpid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE recipeyeast (
+	ry_ryid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	ry_reid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	ry_usid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	ry_yeast							VARCHAR(25) DEFAULT NULL,
+	ry_mfg							VARCHAR(20) DEFAULT NULL,
+	ry_mfgno							VARCHAR(10) DEFAULT NULL,
+	ry_date							date DEFAULT NULL,
+	ry_note							VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (ry_ryid),
+  KEY ry_reid (ry_reid),
+  KEY ry_usid (ry_usid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE userprefs (
+	up_upid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	up_usid							INT(11) UNSIGNED NOT NULL DEFAULT '0',
+	up_name							VARCHAR(15) NOT NULL,
+	up_value							VARCHAR(25) NOT NULL,
+	up_dla							TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (up_upid),
+  UNIQUE KEY up_usid_name (up_usid, up_name)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE users (
+	us_usid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	us_user							VARCHAR(15) NOT NULL DEFAULT '',
+	us_first							VARCHAR(15) DEFAULT '',
+	us_last							VARCHAR(15) DEFAULT '',
+	us_email							VARCHAR(50) DEFAULT '',
+	us_pwd							VARCHAR(25) NOT NULL,
+	us_vunits						VARCHAR(12) DEFAULT 'Gallons',
+	us_viunits						VARCHAR(12) DEFAULT 'Quarts',
+	us_munits						VARCHAR(12) DEFAULT 'Lbs',
+	us_hunits						VARCHAR(12) DEFAULT 'Ounces',
+	us_tunits						VARCHAR(10) DEFAULT 'Fahrenheit',
+	us_eunits						VARCHAR(6) DEFAULT 'SG',
+	us_boilvol						DECIMAL(6,2) DEFAULT '0.00',
+	us_volume						DECIMAL(6,2) DEFAULT '5.00',
+	us_eff							TINYINT(4) DEFAULT '75',
+	us_primer						VARCHAR(10) DEFAULT 'Corn',
+	us_ratio							DECIMAL(2,2) DEFAULT '0.40',
+	us_maltcap						DECIMAL(2,2) DEFAULT '0.40',
+	us_hopform						VARCHAR(6) DEFAULT 'Pellet',
+	us_hydrotemp					DECIMAL(3,1) DEFAULT '60.0',
+	us_dateformat					VARCHAR(11) NOT NULL DEFAULT 'MM/DD/YY',
+	us_dla							TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (us_usid)
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE utilization (
+	bu_form							VARCHAR(6) DEFAULT NULL,
+	bu_time							DOUBLE DEFAULT NULL,
+	bu_util							DOUBLE DEFAULT NULL
+) ENGINE=MYISAM;
+
+
+
+CREATE TABLE yeast (
+	ye_yeid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	ye_yeast							VARCHAR(25) DEFAULT NULL,
+	ye_atlow							TINYINT(3) UNSIGNED DEFAULT '0',
+	ye_athigh						TINYINT(3) UNSIGNED DEFAULT '0',
+	ye_atten							VARCHAR(11) DEFAULT NULL,
+	ye_floc							VARCHAR(11) DEFAULT NULL,
+	ye_type							VARCHAR(10) DEFAULT NULL,
+	ye_mfg							VARCHAR(20) DEFAULT NULL,
+	ye_mfgno							VARCHAR(10) DEFAULT NULL,
+	ye_tolerance					VARCHAR(10) DEFAULT '',
+	ye_info							VARCHAR(1000) DEFAULT NULL,
+	ye_templow						TINYINT(3) UNSIGNED DEFAULT '0',
+	ye_temphigh						TINYINT(3) UNSIGNED DEFAULT '0',
+	ye_tempunits					VARCHAR(10) DEFAULT NULL,
+	ye_dla							TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (ye_yeid),
+  UNIQUE KEY ye_name (ye_yeast, ye_mfg)
+) ENGINE=MYISAM;
+

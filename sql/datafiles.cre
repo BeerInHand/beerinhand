@@ -1,0 +1,17 @@
+DROP TABLE DataFiles;
+
+CREATE TABLE datafiles (
+	df_dfid							INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+	df_table							VARCHAR(25) NOT NULL DEFAULT '',
+	df_dla							timestamp,
+	PRIMARY KEY (df_dfid)
+) ENGINE=MYISAM DEFAULT CHARSET=utf8;
+
+		
+INSERT INTO DataFiles (df_table, df_dla) values ('Grains', now());
+INSERT INTO DataFiles (df_table, df_dla) values ('Hops',  now());
+INSERT INTO DataFiles (df_table, df_dla) values ('Misc',  now());
+INSERT INTO DataFiles (df_table, df_dla) values ('Yeast',  now());
+INSERT INTO DataFiles (df_table, df_dla) values ('BJCPStyles',  now());
+
+update datafiles set df_dla = Date_Add(now(), INTERVAL -100 DAY)
