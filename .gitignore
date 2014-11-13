@@ -1,0 +1,20 @@
+# Ignore all dot files
+.*
+
+# except for .gitignore
+!.gitignore
+
+# Ignore user generated content
+usercontent
+
+# Ignore error logs
+error/log/
+
+# Ignore crap
+test
+dankfest
+aspnet_client
+thumbs.db
+
+# Ignore js database files
+js/*_data.js

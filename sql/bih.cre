@@ -422,7 +422,7 @@ CREATE TABLE users (
 	us_maltcap						DECIMAL(2,2) DEFAULT '0.40',
 	us_hopform						VARCHAR(6) DEFAULT 'Pellet',
 	us_hydrotemp					DECIMAL(3,1) DEFAULT '60.0',
-	us_dateformat					VARCHAR(11) NOT NULL DEFAULT 'MM/DD/YY',
+	us_dateformat					VARCHAR(11) NOT NULL DEFAULT 'MM/DD/YYYY',
 	us_dla							TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (us_usid)
 ) ENGINE=MYISAM;

@@ -86,7 +86,7 @@
 <cfquery name="qryBJCPStyles" datasource="bih">
    select * from bjcpstyles order by st_substyle
 </cfquery>
-<cfset idxBJCPStyles = udfMakeIndex(qryBJCPStyles, "st_substyle") />
+<cfinvoke component="#APPLICATION.MAP.CFC#.util.UDF" method="makeIndex" returnvariable="idxBJCPStyles" qry="#qryBJCPStyles#" fld="st_substyle"/>
 <cfoutput>
 <script>
 	qryBJCPStyles = #SerializeJSON(qryBJCPStyles)#;
